@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<REPORTLIST>
+
+
+
+<!--Used in creitg -->
+
+<REPORT HEADING="Registered Organizations On BIS" NAME="ShowAllManufacturers">
+<SECTION HEADING="Total Verified Organizations" TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Verified Organizations</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="1" ALIGN="LEFT">Total rejected Organizations</HEADERCELL> 
+</HEADER>
+<QUERY>
+Select count(*) from tdc_user_registration_history  where str_user_type='P' and dt_tr_date between #0 and to_date(#1)+1
+group by decision order by decision
+
+</QUERY>    
+</SECTION>
+
+
+
+
+
+<SECTION HEADING="All Verified Organizations" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applied By</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Email</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applied On</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Accepted On</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Attempt for Registration</HEADERCELL> 
+</HEADER>
+<QUERY>
+
+select comp.COMPANY_NAME,GET_COUNTRY_NAME(M_COUNTRY)||',' ||M_STATE||','||M_ADDRESS||'-'||M_ZIP, get_user_name(str_user_id),
+userReg.str_designation,userReg.str_e_mail,to_char(dt_tr_date,'DD-MON-YYYY'),to_char(decision_date,'DD-MON-YYYY'),attempt_for_reg from tdc_user_registration_history userReg,
+creit_manufacturing_address manAddr,creit_company_master comp 
+where userReg.company_id=comp.company_id and userReg.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID 
+and decision='A' and str_user_type='P'
+and dt_tr_date between #0 and to_date(#1)+1
+order by dt_tr_date,str_user_id,attempt_for_reg
+
+</QUERY>    
+</SECTION>
+<SECTION HEADING="All Rejected Organizations" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applied By</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Email</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applied On</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Rejected On</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Attempt for Registration</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Remarks</HEADERCELL> 
+</HEADER>
+<QUERY>
+Select comp.COMPANY_NAME,GET_COUNTRY_NAME(M_COUNTRY)||',' ||M_STATE||','||M_ADDRESS||'-'||M_ZIP ,
+str_fname||' '||str_mname||' '||str_lname, 
+str_designation,str_e_mail,to_chAR(userRegHis.dt_tr_date,'DD-MON-YYYY'),to_char(decision_date,'DD-MON-YYYY'),attempt_for_reg,
+nvl(remarks,'Not Available')
+from tdc_user_registration_history userRegHis,creit_manufacturing_address manAddr,creit_company_master comp where userRegHis.company_id=comp.company_id 
+and userRegHis.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID and str_user_type='P' and decision='R' and userRegHis.dt_tr_date between #0 and to_date(#1)+1
+order by userRegHis.dt_tr_date,str_user_id,attempt_for_reg
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+
+<!-- Show All Manufacturers who filed an application  -->
+<REPORT HEADING="All Organizations who filed an application" NAME="ShowAllManufacturersWhoFiledApplications">
+<SECTION HEADING="All Organizations who filed an application" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applicant Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Number of Applications Submitted</HEADERCELL> 
+
+</HEADER>
+<QUERY>
+
+SELECT get_user_name(cam.str_user_id),comp.COMPANY_NAME,GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP,
+count(cam.str_user_id)
+FROM creit_application_master cam,tdc_user_registration tur,
+creit_manufacturing_address manAddr,creit_company_master comp 
+WHERE cam.str_user_id=tur.str_user_id 
+and cam.version_dt between #0 and to_date(#1)+1
+and tur.company_id=comp.company_id and tur.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID
+group by cam.str_user_id,comp.COMPANY_NAME,GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP
+order by cam.str_user_id
+
+</QUERY> 
+</SECTION>
+
+<!--section 2  --> 
+<SECTION HEADING="Organizations and their Applications" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applicant Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" LINK="/BIS/app_srv/tdc/mm02/jsp/allocator_fullPaper_for_reports.jsp?strVersionID=A1&amp;strAbstractID="  ALIGN="LEFT">Application ID</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applied On</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Current Status</HEADERCELL> 
+
+</HEADER>
+<QUERY>
+SELECT get_user_name(cam.str_user_id),comp.COMPANY_NAME,GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP,
+application_id,to_char(version_dt,'dd-mm-yyyy'),
+get_status(str_status)
+FROM creit_application_master cam,tdc_user_registration tur,
+creit_manufacturing_address manAddr,creit_company_master comp 
+WHERE cam.str_user_id=tur.str_user_id 
+and cam.version_dt between #0 and to_date(#1)+1
+and tur.company_id=comp.company_id and tur.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID
+order by cam.str_user_id
+
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+<!-- All submitted product applications  -->
+<REPORT HEADING="Submitted Applications" NAME="ShowAllSubmittedApplications">
+<SECTION HEADING="Total number of applications" TYPE="VERTICAL">
+<HEADER>
+ <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Status</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total number of applications</HEADERCELL>
+</HEADER>
+<QUERY>
+select get_status(str_status),count(*) from creit_application_master
+where version_dt between #0 and to_date(#1)+1
+and  product_category like #2 
+and standard_id like #3
+group by str_status
+order by get_status(str_status);
+
+</QUERY> 
+</SECTION>
+
+
+<SECTION HEADING="Submitted Applications" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" LINK="/BIS/app_srv/tdc/mm02/jsp/allocator_fullPaper_for_reports.jsp?strVersionID=A1&amp;strAbstractID="  ALIGN="LEFT">Application ID </HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Category</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Name </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Series </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applied on </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Status</HEADERCELL> 
+
+</HEADER>
+<QUERY>
+SELECT comp.COMPANY_NAME, GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP,
+cam.Application_id,
+cpc.category_desc,get_standard_number(cam.standard_id) ,
+cam.PRODUCT_NAME,
+NVL(pRODUCT_SERIES,'NA'),to_chAR(NVL(cam.version_dt,SYSDATE),'DD-MON-YYYY'),get_status(cam.str_status)
+FROM creit_application_master cam,tdc_user_registration tur,creit_product_category cpc ,
+creit_manufacturing_address manAddr,creit_company_master comp 
+WHERE cam.str_user_id=tur.str_user_id AND cam.product_category=cpc.category_id 
+and tur.company_id=comp.company_id and tur.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID
+and version_dt between #0 and to_date(#1)+1
+and  cam.product_category like #2 
+and cam.standard_id like #3
+order by get_status(cam.str_status);
+</QUERY> 
+</SECTION>
+
+
+<SECTION HEADING="Grouped By Product Category" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Category</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number of Applications</HEADERCELL>
+</HEADER>
+<QUERY>
+select cpc.category_desc,count(application_id) 
+FROM creit_application_master cam,creit_product_category cpc 
+where cam.product_category=cpc.category_id
+and  cam.product_category like #2 
+and cam.standard_id like #3
+and cam.version_dt between #0 and to_date(#1)+1
+GROUP BY cpc.category_desc
+
+</QUERY> 
+</SECTION>
+
+<SECTION HEADING="Grouped By Indian Standard" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number of Applications</HEADERCELL>
+</HEADER>
+<QUERY>
+select get_standard_number(standard_id),count(application_id) from 
+creit_application_master 
+where version_dt between #0 and to_date(#1)+1
+and  product_category like #2 
+and standard_id like #3
+GROUP BY get_standard_number(standard_id)
+
+</QUERY> 
+</SECTION>
+
+
+<SECTION HEADING="Grouped By Manufacturing Unit" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number of Applications</HEADERCELL>
+</HEADER>
+<QUERY>
+SELECT comp.COMPANY_NAME,GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP,
+count(cam.Application_id)
+FROM creit_application_master cam,tdc_user_registration tur,
+creit_manufacturing_address manAddr,creit_company_master comp 
+WHERE cam.str_user_id=tur.str_user_id 
+and cam.version_dt between #0 and to_date(#1)+1
+and  cam.product_category like #2 
+and cam.standard_id like #3
+and tur.company_id=comp.company_id and tur.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID
+GROUP BY comp.COMPANY_NAME,GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP 
+
+
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+
+
+
+
+
+
+<!-- All Pending product applications with all officers with status -->
+<REPORT HEADING="Show All Pending Applications" NAME="ShowAllPendingApplications">
+<SECTION HEADING="Total Pending Applications" TYPE="HORIZONTAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Pending Applications </HEADERCELL> 
+
+</HEADER>
+<QUERY>
+select count(distinct(num_proposal_id))
+from tdc_po_proposal_tracker
+where str_status not in ('AC','RJ','AP','RD')
+
+</QUERY> 
+</SECTION>
+<SECTION HEADING="All Pending Applications" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" LINK="/BIS/app_srv/tdc/mm02/jsp/allocator_fullPaper_for_reports.jsp?strVersionID=A1&amp;strAbstractID="  ALIGN="LEFT">Application ID</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Name of Officer </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Officer</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Assigned on </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Status</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Days since assigned</HEADERCELL> 
+
+</HEADER>
+<QUERY>
+select num_proposal_id,get_user_name(str_assigned_to),decode(upper(str_user_type),'D','Dealer','R','Reviewing Officer','G','Granting Officer'),
+to_char(dt_allotment_date,'dd-mm-yyyy'),
+get_status(str_status),date_part('days',sysdate-dt_allotment_date) from tdc_po_proposal_tracker
+where str_status not in ('AC','RJ','AP','RD')
+order by num_proposal_id,date_part('days',sysdate-dt_allotment_date)
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+
+<!-- All Lab Statistics -->
+<REPORT HEADING="Lab Statistics" NAME="LabStatistics">
+
+<SECTION HEADING="Number of Applications for each Lab" TYPE="VERTICAL">
+<HEADER>
+ 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Lab Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Models Tested(in number)</HEADERCELL> 
+</HEADER>
+<QUERY>
+select get_lab_name(test_lab_id),count(product_model) from creit_application_model_test_dtl 
+where test_dt between #0 and to_date(#1)+1
+group by test_lab_id
+order by get_lab_name(test_lab_id)
+</QUERY>
+</SECTION>
+
+
+
+<SECTION HEADING="Models tested per Indian Standard" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Lab Name</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" LINK="/BIS/app_srv/tdc/mm02/jsp/allocator_fullPaper_for_reports.jsp?strVersionID=A1&amp;strAbstractID="  ALIGN="LEFT">Application ID</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Applicant Name</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Manufacturing Unit</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Model Tested</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Testing Date</HEADERCELL>  
+</HEADER>
+<QUERY>
+SELECT  get_lab_name(camtd.test_lab_id),get_standard_number(cam.standard_id),camtd.application_id,get_user_name(camtd.tr_id),
+comp.COMPANY_NAME,GET_COUNTRY_NAME(manAddr.M_COUNTRY)||',' ||manAddr.M_STATE||','||manAddr.M_ADDRESS||'-'||manAddr.M_ZIP,
+camtd.product_model,to_char(camtd.test_dt,'dd-mm-yyyy')
+from creit_application_master cam, creit_application_model_test_dtl camtd,
+tdc_user_registration tur,creit_manufacturing_address manAddr,creit_company_master comp 
+where cam.application_id= camtd.application_id and
+tur.MAN_ADDRESS_ID=manAddr.MAN_ADDRESS_ID 
+and tur.company_id=comp.company_id
+and camtd.tr_id=tur.str_user_id
+and camtd.test_dt between #0 and to_date(#1)+1
+order by get_lab_name(camtd.test_lab_id),get_standard_number(cam.standard_id),camtd.application_id
+
+
+</QUERY> 
+
+</SECTION>
+
+<SECTION HEADING="Number of models tested per Indian Standard" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Lab Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Models Tested(in number)</HEADERCELL>  
+</HEADER>
+<QUERY>
+SELECT get_lab_name(camtd.test_lab_id),get_standard_number(standard_id),COUNT(*)
+from creit_application_master cam, creit_application_model_test_dtl camtd
+where cam.application_id= camtd.application_id and 
+camtd.test_dt between #0 and to_date(#1)+1 
+group by get_lab_name(camtd.test_lab_id), get_standard_number(standard_id)
+order by get_lab_name(camtd.test_lab_id),get_standard_number(standard_id)
+
+
+</QUERY> 
+
+</SECTION>
+
+<SECTION HEADING="Total models tested per Indian Standard" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Models Tested(in number)</HEADERCELL>  
+</HEADER>
+<QUERY>
+SELECT get_standard_number(standard_id),COUNT(*)
+from creit_application_master cam, creit_application_model_test_dtl camtd
+where cam.application_id= camtd.application_id and 
+camtd.test_dt between #0 and to_date(#1)+1 
+group by  get_standard_number(standard_id)
+order by get_standard_number(standard_id)
+
+
+</QUERY> 
+
+</SECTION>
+
+
+
+</REPORT>
+
+
+<REPORT HEADING="Registered Users" NAME="ShowRegisteredUsers">
+<SECTION HEADING="Total Registered Users" TYPE="VERTICAL">
+<HEADER>
+
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Officer Type</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number of Officers</HEADERCELL> 
+</HEADER>
+<QUERY>
+select tutm.str_usr,count(str_user_type) from tdc_user_registration tur,tdc_usr_type_mst tutm
+where tur.str_user_type=tutm.str_usr_type 
+and str_user_type not  in ('P')
+and tur.num_hit_counter!=3 
+group by tutm.str_usr 
+order by tutm.str_usr
+
+</QUERY> 
+</SECTION>
+
+<SECTION HEADING="Registered Users" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Name of Officer</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">E-mail id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">User Id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Officer Type</HEADERCELL> 
+</HEADER>
+<QUERY>
+select get_user_name(tur.str_user_id),nvl(tur.STR_designation,'-'),tur.STR_E_MAIL,tur.str_user_id,tutm.str_usr from 
+tdc_user_registration tur,tdc_usr_type_mst tutm 
+where tur.str_user_type=tutm.str_usr_type 
+and str_user_type not  in ('P')
+and tur.num_hit_counter!=3 
+order by tutm.str_usr                         
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+<REPORT HEADING="Registered Laboratories" NAME="ShowRegisteredLaboratories">
+<SECTION HEADING="Registered Laboratories" TYPE="VERTICAL">
+<HEADER>
+
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Laboratory Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Lab e-mail</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Lab Contact No.</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">List of Standards</HEADERCELL> 
+</HEADER>
+<QUERY>
+select lab_name,address,lab_email,lab_contact_no,replace(get_standard_list(lab_id),'@',',')
+from creit_lab_registration;
+
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+
+
+<REPORT HEADING="Registered Collection Agencies" NAME="ShowRegisteredCA">
+<SECTION HEADING="Registered Laboratories" TYPE="VERTICAL">
+<HEADER>
+
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Collection Agency Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">E-mail</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Contact No.</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Operates In</HEADERCELL> 
+</HEADER>
+<QUERY>
+select ca_name,address,ca_email,ca_contact_no,replace(get_state_list(ca_id),'@',',')
+from creit_ca_registration;
+
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+<!--Reports for BIS -->
+
+
+<REPORT HEADING="Registered BIS officers" NAME="ShowAllOfficersOfBIS">
+<SECTION HEADING="Total Registered BIS officers" TYPE="VERTICAL">
+<HEADER>
+
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Officer Type</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number of Officers</HEADERCELL> 
+</HEADER>
+<QUERY>
+select tutm.str_usr,count(str_user_type) from tdc_user_registration tur,tdc_usr_type_mst tutm
+where tur.str_user_type=tutm.str_usr_type and
+str_user_type in ('A','D','R','G','B','I')
+group by tutm.str_usr 
+order by tutm.str_usr
+
+</QUERY> 
+</SECTION>
+
+<SECTION HEADING="Registered BIS officers" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Name of Officer</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">E-mail id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">User Id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Officer Type</HEADERCELL> 
+</HEADER>
+<QUERY>
+select get_user_name(tur.str_user_id),nvl(tur.STR_designation,'-'),tur.STR_E_MAIL,tur.str_user_id,tutm.str_usr from 
+tdc_user_registration tur,tdc_usr_type_mst tutm 
+where tur.str_user_type=tutm.str_usr_type and 
+tur.str_user_type in ('A','D','R','G','B','I')
+order by tutm.str_usr                         
+</QUERY> 
+</SECTION>
+</REPORT>
+
+<!-- Average time taken for processing Applications -->
+<REPORT HEADING="Average time taken for processing Applications" NAME="AverageTimeTakenProcessingApplns">
+<SECTION HEADING="Average time taken for processing Applications" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Name of Officer </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Officer </HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Average number of days</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+<!-- to be updated-->
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+<!--Complaint Statistics -->
+<REPORT HEADING="Complaints Statistics" NAME="ComplaintsStatistics">
+<SECTION HEADING="Total Complaints" TYPE="HORIZONTAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Complaints</HEADERCELL>  
+</HEADER>
+<QUERY>
+select count(*)
+from
+creitg_compliant_master
+where
+complaint_date
+between #0 and to_date(#1)+1
+
+
+</QUERY> 
+</SECTION>
+<SECTION HEADING="Total Complaints for Registered Products" TYPE="HORIZONTAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Complaints for Registered Products</HEADERCELL>  
+</HEADER>
+<QUERY>
+select count(*) from creitg_compliant_master
+where complaint_type='Registered'
+and 
+complaint_date
+between #0 and to_date(#1)+1 
+
+
+</QUERY> 
+</SECTION>
+<SECTION HEADING="Total Complaints for Unregistered Products" TYPE="HORIZONTAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Complaints for Unregistered Products</HEADERCELL>  
+</HEADER>
+<QUERY>
+select count(*)
+from
+creitg_compliant_master
+where complaint_type='UnRegistered'
+and 
+complaint_date
+between #0 and to_date(#1)+1 
+
+
+</QUERY> 
+</SECTION>
+
+
+<SECTION HEADING="Complaints" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Organization</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Category</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Model Number</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Complaint summary</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Complaint Details</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Complaint Date</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Complainer</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Complaint Type</HEADERCELL>  
+</HEADER>
+<QUERY>
+select manufacturer_id,get_product_category(product_category),model_no,tittle,description,to_char(complaint_date,'dd-mm-yyyy'),
+complainer_name ||',' || address ||',' ||get_city_name(city_id) ||',' || get_state_name(state_id),complaint_type
+from
+creitg_compliant_master
+where
+complaint_date
+between #0 and to_date(#1)+1 
+order by complaint_type,complaint_date
+
+</QUERY> 
+</SECTION>
+
+<SECTION HEADING="Complaints Group by Product Category(Registered Products)" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Category</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Number of Complaints</HEADERCELL>  
+</HEADER>
+<QUERY>
+select get_product_category(product_category),standard_desc,count (*)
+from
+creitg_compliant_master
+where complaint_type='Registered'
+and 
+complaint_date
+between #0 and to_date(#1)+1 
+group by get_product_category(product_category),standard_desc
+order by get_product_category(product_category),count (*) desc
+
+</QUERY> 
+</SECTION>
+<SECTION HEADING="Complaints Group by Product Category(Unregistered Products)" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Category</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Number of Complaints</HEADERCELL>  
+</HEADER>
+<QUERY>
+select get_product_category(product_category),count (*)
+from
+creitg_compliant_master
+where complaint_type='UnRegistered'
+and 
+complaint_date
+between #0 and to_date(#1)+1
+group by get_product_category(product_category),standard_desc
+order by get_product_category(product_category),count (*) desc
+
+</QUERY> 
+</SECTION>
+<SECTION HEADING="Complaints Group by Organization" TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Organization</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Product Category</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Indian Standard</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total Number of Complaints</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Complaint Type</HEADERCELL>  
+</HEADER>
+<QUERY>
+select manufacturer_id,get_product_category(product_category),nvl(standard_desc,'NA'),count (*),complaint_type
+from
+creitg_compliant_master
+where
+complaint_date between #0 and to_date(#1)+1 
+group by manufacturer_id,get_product_category(product_category),nvl(standard_desc,'NA'),complaint_type
+order by get_product_category(product_category),count (*) desc,complaint_type
+
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+</REPORTLIST>
+
+
+
+
+

@@ -1,0 +1,571 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%> 
+
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="in.cdacnoida.dava.util.DataEncoder"%>
+
+<title>All Uploaded XML</title>
+<style>
+.modal-lg{
+    max-width: 85%;
+}
+</style>
+	
+	
+<script>
+
+$(document).ready(function(){
+	
+	loadDataTable(1);
+
+});
+</script>
+
+
+
+
+<script>
+
+			  //added by harshita
+			    function reverseString(str) {
+			    	//alert ('Hello');
+			        var newString = "";
+			        for (var i = str.length - 1; i >= 0; i--) {
+			            newString += str[i];
+			        }
+			        return newString;
+			    }
+
+			    </script>
+
+
+<script>
+
+function initTable(id,x_size,y_size,statusID){
+	var Table = $(id).DataTable({
+		columns: [
+			{
+						"sTitle" : "",
+						"mData" : "num_document_id",
+						"bVisible": false
+			},
+			{
+				"sTitle" : "User Name",
+				"mData" : "user_name"
+			},
+			{
+				"sTitle" : "Purpose Type",
+				"mData" : "str_remarks"
+			},
+			{
+				"sTitle" : "Uploaded Date",
+				"mData" : "createddate"
+			},
+			{
+				"sTitle" : "Uploaded Time",
+				"mData" : "createdtime"
+			},
+			{
+				"sTitle" : "Uploaded Xml",
+				"mData" :  ""
+			},
+			{
+				"sTitle" : "Status",
+				"mData" :  "status"
+			},
+			{
+				"sTitle" : "",
+				"mData" : "num_status",
+				"bVisible": false
+			}
+		],
+						         	responsive: !0,
+									columnDefs : [
+											{
+												'targets' : 5,
+												'searchable' : true,
+												'orderable' : true,
+												'className' : 'dt-body-top',
+												'render' : function(
+														data, type, row) {
+
+
+													var a = "";
+													
+					    	    		a = '<a href="#" onclick="openDetails(\''+row.num_document_id+'\',\''+row.num_type_id+'\');">View Xml</a>';
+					    	    		//a='<label onclick="openDetails(\''+row.num_document_id+'\',\''+row.num_type_id+'\');"> View Xml </label>';
+					    	    		//${pageContext.request.contextPath}/uploadXmlPage/
+					    	    				   return a;
+															
+												}
+											},
+									
+											{
+												"targets": [],
+								                 "className": "none",
+								             	  
+								             }]	,
+												'rowCallback' : function(row, data, dataIndex) {
+													//alert(data.num_status);
+													if (data.num_status == 1 || data.num_status == 2) {
+														$(row).css("background-color", "#edfbde");
+													} /* else if (data.num_status == 2) {
+														$(row).css("background-color", "#edfbde");
+													} */ else if (data.num_status == 3) {
+														$(row).css("background-color", "#f3d1ce");
+													}
+
+												}		             
+    	
+	});
+	return Table;
+}
+
+function resetAndDrawTable(dataTableId,data,statusID){
+	var sizeWidth,sizeHeight;
+		sizeWidth="100%";
+		sizeHeight="100%";
+	var table = initTable(dataTableId,sizeWidth,sizeHeight,statusID);
+	
+	table.clear().draw();
+	table.rows.add(data); // Add new data
+	table.columns.adjust().draw();
+}
+
+
+function loadDataTable(statusID){
+	 $.ajax({
+			type:"GET",
+			data:{status :statusID},
+			url :"getUploadXmlDetails",
+			success: function(response){
+				var JSONObject = JSON.parse(response);
+				//alert(JSON.stringify(JSONObject.aaData));
+				resetAndDrawTable("#m_table_1",JSONObject.aaData,statusID);// Redraw the DataTable
+			}
+		});
+} 
+
+function xmlFunction(docId){//${pageContext.request.contextPath}/downloadTmpFile_Secure/'+row.num_document_id
+	$("#docID").val(docId);
+	//alert("doctid"+docId);
+	//var enFid = DataEncoder.encode(docId);
+	/* var enFid1 =  btoa(docId);
+	alert(enFid1);
+	var reverseval=reverseString(enFid1);
+	alert(reverseval);
+	var enFid = btoa(reverseval); */
+	/* alert(enFid); */
+
+/*  var enFid = docId;  */
+	//alert(enFid);
+	var fileType = 2;
+
+
+	document.getElementById("frm").action = "${pageContext.request.contextPath}/downloadTmpFile_Secure";
+	$("#ENdoc_id").val(docId);
+    $("#fileType").val(fileType);
+	//document.getElementById("frm").method = "GET";
+	document.getElementById("frm").method = "POST";
+	createFHash("frm");
+	document.getElementById("frm").submit(); 
+
+	
+	/* document.getElementById("frm").action = "${pageContext.request.contextPath}/downloadTmpFile_Secure/"+enFid+"/"+fileType; */
+	//document.getElementById("frm").method = "GET";
+	/* document.getElementById("frm").method = "POST"; */
+	/* document.getElementById("frm").submit(); */ 
+	//ok_message("Under Processing......");
+}
+</script>
+
+
+<script>
+
+function showModal(event) {
+	//alert("in show modal");
+	$(event).modal({
+		backdrop : 'static',
+		keyboard : false,
+		show : true
+
+	});
+} 
+
+</script>
+
+<script>
+		function openDetails(docId,typeId){
+			//alert("docId=="+docId);
+			//alert("typeId=="+typeId);
+
+			$("#numDocId2").val(docId);   
+		    var docId1 = btoa(docId);
+		    var reverseval=reverseString(docId1);
+		    var docId = btoa(reverseval); 
+
+		    $("#docId").val(docId);
+
+		    createFHash("frm"); 
+		    
+		    var form = $('#frm')[0];
+			var form_data = new FormData(form);
+			
+		 	$.ajax({
+				type : "POST",
+				//enctype: 'multipart/form-data',
+				data : form_data,
+				//data : { "docId" : docId },
+				url : "viewUploadedXML",
+				cache : false,
+		         processData : false,
+		         contentType : false,
+				success : function(response) {
+					//alert(response);
+
+
+						  if (/xml/i.test(response)) {
+				
+							 // alert("if");
+				$('#showData').html('');
+				$('#showData2').html('');
+				$('#showData3').html('');
+				
+					var tempDom = $('<output>').append($.parseHTML(response));
+					 $(".modal-content #docID").val(docId);
+					 $(".modal-content #typeID").val(typeId);
+					var appContainer = $('#details', tempDom);
+					$('#showData').html(appContainer[0]);
+					
+					appContainer = $('#tertiary', tempDom);
+				    $('#showData2').html(appContainer[0]);
+				    
+					appContainer = $('#secondary', tempDom);
+					$('#showData3').html(appContainer[0]);
+
+					if(typeId==3){
+					 $(".modal-content .btn-prev").removeClass('hide');
+					  $(".modal-content .btn-next").removeClass('hide');
+					}
+					else{
+					$(".modal-content .btn-prev").addClass('hide');
+					  $(".modal-content .btn-next").addClass('hide');
+					}
+					$('#showDataModel').modal('show');
+				} else {
+
+
+					error_message("Form Data Tampered");
+		            // Response is null, redirect to another page
+					//window.location.href = '${pageContext.request.contextPath}/error.jsp';
+					 window.location.href = '${pageContext.request.contextPath}/login';
+
+				}
+				}						
+				});
+				}
+			
+
+</script>
+
+
+<!-- <script>
+
+function isValidXml(xmlString) {
+	alert("aaaaaaaaaa");
+    try {
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+        return xmlDoc.documentElement.nodeName != "parsererror";
+    } catch (e) {
+        return false;
+    }
+}
+
+</script>
+ -->
+
+<script>
+$(document).ready(function(){
+$("div[id^='showDataModel']").each(function(){
+  var currentModal = $(this);
+  
+  //click next
+  currentModal.find('.btn-next').click(function(){
+    currentModal.modal('hide');
+    currentModal.closest("div[id^='showDataModel']").nextAll("div[id^='showDataModel']").first().modal('show'); 
+  });
+  
+  //click prev
+  currentModal.find('.btn-prev').click(function(){
+    currentModal.modal('hide');
+    currentModal.closest("div[id^='showDataModel']").prevAll("div[id^='showDataModel']").first().modal('show'); 
+  });
+
+});
+});
+</script>
+
+<script>
+$('.js-example-basic-multiple').select2({
+	multiple : true,
+	placeholder : '-- Select --',
+	allowClear : true
+});
+</script>
+
+<div class="content-wrapper mt-0 pt-0">
+<section class="regdv content content-tiles">
+	<div class="page-title">
+				<h1 class="fw-bold">Uploaded Data</h1>
+			</div>
+
+      <form:form method="post" id="frm" name="frm" modelAttribute="uploadData" enctype="multipart/form-data">
+		<%-- 		<sec:csrfInput/> --%>
+				
+				<form:input type="hidden" id="ENdoc_id" path="ENdoc_id" />
+						<form:input type="hidden" id="fileType" path="fileType" />	
+          <form:hidden path="uploadId" id="uploadId"/>
+          
+          <form:hidden path="docId" id="docId"/>
+          
+            <fieldset class="mt-2">
+           	<div class="section-title"><h2>Uploaded Data List</h2></div>
+           	<div class="bg_white">
+           			<table class="w-100 table table-striped table-bordered dt-responsive nowrap dspit dataTable no-footer dtr-inline collapsed" id="m_table_1">
+							<thead class="theadTransacColor">
+					  			
+							</thead>
+							</table>
+           	</div>
+				</fieldset>
+				</form:form>
+
+				<!--Begin: modal -->
+				<!-- Modal	1 -->
+				<div id="showDataModel" class="showDataModel modal" role="dialog" tabindex="-1">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header"><button type="button" class="close" data-bs-dismiss="modal">&times;</button></div>
+								<input type="hidden" name="docID" id="docID" aria-label="Doc Id"/>
+								<input type="hidden" name="typeID" id="typeID" aria-label="Type Id"/>
+								
+							<div class="modal-body" id="showData">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="custom-btn position-relative" onClick="xmlFunction($('#docID').val())">Download XML</button>
+								<button type="button" class="btn_default btn-success btn-next">Next</button>
+								<button type="button" class="btn_default" data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+				</div>
+		</div>
+
+		<!-- Modal	2 -->
+		<div id="showDataModel2" class="showDataModel modal " role="dialog" tabindex="-1">
+			<div class="modal-dialog modal-lg modal-dialog-centered">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header"><button type="button" class="close" data-bs-dismiss="modal">&times;</button>					</div>
+						<input type="hidden" name="docID" id="docID" aria-label="doc ID"/>
+						<input type="hidden" name="typeID" id="typeID" aria-label="type id"/>
+						<div class="modal-body" id="showData2"></div>
+					<div class="modal-footer">
+						<button type="button"  class="custom-btn position-relative" onClick="xmlFunction($('#docID').val())">Download XML</button>
+						<button type="button" class="btn hide btn_default btn-prev">Prev</button>
+						<button type="button" class="hide btn_default btn-success btn-next">Next</button>
+						<button type="button" class="btn_default" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+		<!-- Modal	3 -->
+		<div id="showDataModel3" class="showDataModel modal" role="dialog" tabindex="-1">
+			<div class="modal-dialog modal-lg modal-dialog-centered">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header"><button type="button" class="close" data-bs-dismiss="modal">&times;</button></div>
+					<input type="hidden" name="docID" id="docID"  aria-label="Doc ID"/>
+					<input type="hidden" name="typeID" id="typeID"  aria-label="Type ID"/>
+
+					<div class="modal-body" id="showData3"></div>
+					<div class="modal-footer">
+					<button type="button"  class="custom-btn position-relative" onClick="xmlFunction($('#docID').val())">Download XML</button>
+					<button type="button" class="hide btn_default btn-prev">Prev</button>
+						<button type="button" class="btn_default" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- End: modal -->
+
+
+		<!-- End: modal -->
+		
+		<!-- Modal -->
+<div id="getCodeModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title">Details</h4>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" >
+        <!-- Form -->
+       <form:form method="post" id="frm3" target="_blank"  name="frm3" >
+				<%-- <sec:csrfInput/> --%>
+        <sec:csrfInput/>
+
+          
+																					
+        </form:form>
+
+        <!-- Preview-->
+        <div id="tree"></div>
+      </div>
+ 
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+ <!-- Modal -->
+ 
+ 
+ 
+	</section>
+	
+	
+	
+	
+	</div>
+	
+<script>
+var token_key = "NMD_TOKEN_KEY";
+var createFHash = function(frmName){
+//alert("createFHash same");
+	 datastring = $("form[name='"+frmName+"']").serializeArray()
+	var tokenval = getHexaCode(datastring);
+												
+	
+	//alert("token==="+tokenval);
+ 
+
+	$('<input>').attr({
+	    type: 'hidden',
+	    id: token_key,
+	    name: token_key,
+	    value:tokenval
+	}).appendTo('form');
+	
+ 	
+};
+ 
+ var getHexaCode = function(datastring){
+	
+	 datastring.sort(function(a, b){
+	        var a1= a.name.toLowerCase(), b1= b.name.toLowerCase();
+	        if(a1== b1) return 0;
+				   
+				   
+	        return a1> b1? 1: -1;
+	    });
+	     
+	//alert(datastring);
+	console.log(datastring);
+	
+	
+	
+	var myInput = "";
+	var datalength=0;
+	$.each(datastring, function( index, val ) {
+		 
+		if(val.name != token_key){
+			
+			////alert( index + ": " + val.name +" ="+val.value+"=");
+			
+			var newVal =  val.value;
+			
+			if(newVal!=''){
+				
+				newVal = newVal.replace(/ /gi, "_");
+				newVal = newVal.replace(/\n|\r\n|\r/g, '_');
+				myInput = myInput+""+newVal;
+				datalength=datalength+1;
+			}
+			
+		}
+		
+		  
+	});
+	
+	//console.log("str :: "+myInput);
+	//alert(myInput);
+	return hex_md5(myInput);
+	
+	//return myInput;
+	
+	
+ };
+ 
+ 
+var submitForm = function(){
+	
+	////alert("inside submitForm");
+	 		
+	document.forms[0].submit();
+	
+	
+};
+ 
+var getQueryParameters = function(str){
+	str = str.split('?')[1];
+	
+	var outputArray = new Array();
+	
+	var strVals = str.split("&");
+	
+	for(var i=0; i< strVals.length; i++){
+		
+		var newVals = strVals[i].split("=");
+		
+		var obj = {name:""+newVals[0] , value:""+newVals[1]} ;
+		
+		outputArray[i] = obj;
+		
+	} 
+	
+	return outputArray;
+	
+};
+</script>
+	  <script type="text/javascript" src="js/formFieldValidation/md5.js"></script>
+<!-- <script type="text/javascript" src="js/formFieldValidation/CSRF2.js"></script> --> 
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RRHHYLSBGG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RRHHYLSBGG');
+</script>

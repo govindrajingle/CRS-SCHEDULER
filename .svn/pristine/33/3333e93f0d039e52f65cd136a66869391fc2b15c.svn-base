@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+  <tiles-definitions>
+  
+  	<definition name="app.homepage" template="/WEB-INF/JSP/HomePages/homepage.jsp">
+  		<put-attribute name="header" value="/WEB-INF/JSP/HomePages/header.jsp"></put-attribute>
+  		<put-attribute name="footer" value="/WEB-INF/JSP/HomePages/footer.jsp"></put-attribute>
+  		<put-attribute name="body"></put-attribute>
+  	</definition>
+  	
+  	<definition name="app.dashboard" template="/WEB-INF/JSP/DashBoard/dashBoardHome.jsp">
+  		<put-attribute name="header" value="/WEB-INF/JSP/DashBoard/dashboardHeader.jsp"></put-attribute>
+  		<put-attribute name="footer" value="/WEB-INF/JSP/DashBoard/dashBoardFooter.jsp"></put-attribute>
+  		<put-attribute name="body"></put-attribute>
+  	</definition>
+  	
+  	<definition name="updatePasswordPage" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/passwordUpdatePage.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="davaHome" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/davaHomepage.jsp"></put-attribute>
+  	</definition>
+  	
+  		<definition name="faq" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/faq.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="davaRegistration" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/RegistrationPage.jsp"></put-attribute>
+  	</definition>
+  		
+  	<definition name="loginSuccess" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/loginSuccess.jsp"></put-attribute>
+  	</definition>
+  	
+	  <definition name="adminHome" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/adminHome.jsp"></put-attribute>
+	  	</definition>
+  
+   	<definition name="getRcmcRegistrationPage" extends="app.homepage">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/rcmcRegistrationPage.jsp"></put-attribute>
+	</definition>
+  
+  	<definition name="registrationSuccess" extends="app.homepage">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/successfullRegistration.jsp"></put-attribute>
+	</definition>
+	
+	
+		<definition name="dashboardMain" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/dashBoardMain.jsp"></put-attribute>
+	</definition>
+  
+  	<definition name="LocationMaster" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/LocationMaster.jsp"></put-attribute>
+	</definition>
+	
+	
+	<definition name="ReportProblem" extends="app.homepage">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/ReportProblem.jsp"></put-attribute>
+	</definition>
+	
+	
+	<definition name="StateMaster" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/StateMaster.jsp"></put-attribute>
+	</definition>
+	<definition name="DistrictMaster" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DistrictMaster.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="RCMCData" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RCMCData.jsp"></put-attribute>
+	</definition>
+  	<definition name="CountryMaster" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/CountryMaster.jsp"></put-attribute>
+	  		
+	</definition>  		
+    <definition name="PackUnitMaster" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/PackUnitMaster.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="AddressDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/AddAddressDetail.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="MemberDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/AddMemberDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="DrugDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/DrugDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="OfficialRegistrationPage" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/OfficialRegistrationPage.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="merchantDashboard" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/merchantDashboard.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="excelToXmlConverter" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/excelToXmlConverter.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="PremisesDtlPreview" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/PreviewAddressDtl.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="pharamexcilDashboard" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/pharamexcilDashboard.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="PointsOfDistribution" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/PointsOfDistribution.jsp"></put-attribute>
+	</definition>
+	
+	
+	
+	<definition name="CountryRegionMap" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/CountryRegionMap.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ExportOrder" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/ExportOrder.jsp"></put-attribute>
+	</definition>
+	
+	
+	
+		<definition name="underProcess" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/underProcess.jsp"></put-attribute>
+	</definition>
+		<definition name="manufSiteUser" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/AddManufSiteUser.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="UploadXmlDataPage" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/UploadDataXml.jsp"></put-attribute>
+	</definition>
+	<definition name="getXmlUploadPage" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/uploadXmlPage.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="manuListPage" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/ManufacturingListingPage.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="RegistrationPending" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/RegistrationPendingApproval.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="RegistrationApproved" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/ApprovedRegistration.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="RegistrationRejected" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/RegistrationRejected.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ReposrtProblemResponse" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/FeedbackResponse.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="PointsOfDistributionData" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/PointsOfDistributionDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ProccurementMaster" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/ProcurementDetails.jsp"></put-attribute>
+	</definition>
+	
+	
+	<definition name="StatewiseSiteDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/statewiseSiteDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="exportHierarchyStatistics" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/StatisticsPages/exportHierarchyStatistics.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="viewAllCountryExportStatistics" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/StatisticsPages/viewAllCountryExportStatistics.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="showDrugDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/ShowDrugDetails.jsp"></put-attribute>
+	</definition>
+	
+		<definition name="UploadedData" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/UploadedData.jsp"></put-attribute>
+	</definition>
+	
+		<definition name="changePassword" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/changePassword.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="searchPage" extends="app.homepage">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/SearchPage.jsp"></put-attribute>
+	</definition>
+	
+  	<definition name="RegistrationOfWorkshop" extends="app.homepage">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/WorkshopForm.jsp"></put-attribute>
+	</definition>
+  	
+  	<definition name="userProfile" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/UserProfile.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="CodeGeneration" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/GeneratePackCode.jsp"></put-attribute>
+	</definition>
+	<definition name="viewxml" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/xmlview.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="consignmentDetails" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/consignmentDetails.jsp"></put-attribute>
+  	</definition>
+  	<definition name="gallery" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/gallery.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="ShowDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/ShowDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="customDashboard" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/customDashboard.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="CustomUploadedData" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/CustomUploadedData.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="userProfile" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/UserProfile.jsp"></put-attribute>
+	</definition>
+  	<definition name="galleryform" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/galleryForm.jsp"></put-attribute>
+  	</definition>
+  	
+	
+	<definition name="viewEmailData" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/EmailDetailsOnDashboard.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ExportPort" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/PortOfExport.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="HSAPDF" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/HSAPDF.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="AboutUs" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/pharmexcilDashboardAboutUs.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="NewsEvents" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/NewsEvents.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="DataRecalled" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/recalledXML.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="AllUploadedData" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/ShowAllUploadedData.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="AllDrugData" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/ShowAllProductData.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="regulatoryAuthrityDashboard" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/RegulatoryAuthDashboard.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="offRegistration" extends="app.homepage">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/OtherOfficialRegistration.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ExportPortData" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/ShowPortOfExportDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="PointOfDis" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/FinalPointOfDis.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="mocDashboard" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/mocDashboard.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="queryMst" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/DashBoard/queryMst.jsp"></put-attribute>
+	</definition>
+	<definition name="videotutorial" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/videoTutorial.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="screenreader" extends="app.homepage">
+  		<put-attribute name="body" value="/WEB-INF/JSP/HomePages/screenreader.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="DeletedDrugDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/ShowCorDeletedDrugDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="RegionMst" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/RegionMst.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ShowRegionMstDtls" extends="app.dashboard">
+	  	<put-attribute name="body" value="/WEB-INF/JSP/RegionMstDetails.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ExportPortListing" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/PortOfExportListingDtls.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="UploadedAllDataInst" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/AllUploadedXML_InstWise.jsp"></put-attribute>
+	</definition>
+	<definition name="appSearchLogs" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/appSearchLogs.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="AddConsignmentDetails" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/UploadXml/ConsignmentDetailPage.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="CorporateDeatils" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/AllCorporateData.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="UploadedDataReport" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/AllUploadDataReport.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="ProdDetailsReport" extends="app.dashboard">
+  		<put-attribute name="body" value="/WEB-INF/JSP/RegistrationPages/AllProductReport.jsp"></put-attribute>
+  	</definition>
+  	
+ 	<definition name="DongleReset" extends="app.dashboard">
+	  		<put-attribute name="body" value="/WEB-INF/JSP/DongleReset.jsp"></put-attribute>
+	</definition> 	
+  </tiles-definitions>

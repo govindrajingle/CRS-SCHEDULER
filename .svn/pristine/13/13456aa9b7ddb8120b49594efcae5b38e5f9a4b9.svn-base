@@ -1,0 +1,21 @@
+ftp.path=/ftp
+ftp.directory=DAVA
+ftp.root=/ftp
+ftp.hostname=10.10.10.62
+ftp.username=cdscoftp01
+ftp.password=cdscoftp01@123
+ftp.port=21
+ftp.tempupload=DAVA
+
+
+# ftp.jasperexportPath=C://nvs_councellor//
+
+# Set the file size limit (default 1Mb). If you want to specify that files be 
+# unlimited set the multipart.maxFileSize property to -1.
+#multipart.maxFileSize =-1
+
+# Set the total request size for a multipart/form-data (default 10Mb)
+#multipart.maxRequestSize =-1
+
+spring.servlet.multipart.max-file-size=-1MB
+spring.servlet.multipart.max-request-size=-1MB

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UploadedXMLData" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5cad90b-84b2-4a69-b025-42f1016d1f28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="uploaded data" uuid="0d94f4cc-6c2d-4a41-a870-fca32079b6df">
+		<parameter name="userid" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[1006]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select rownum, a.str_remarks,u.user_name,i.str_manuf_code,a.str_filename,a.num_document_id,a.num_upload_id,to_char(a.dt_tr_date,'dd-Mon-YYYY')createddate,to_char(a.dt_tr_date,'HH24:MI:ss') createdtime ,a.num_type_id, u.org_name from upload_data_dtl a,user_registration u,institute_mst i where a.num_user_id=u.user_id and u.user_id=$P{userid} and a.num_inst_id=i.num_inst_id and a.num_isvalid = 1 and num_recall_flag = 0]]>
+		</queryString>
+		<field name="rownum" class="java.lang.Long"/>
+		<field name="str_remarks" class="java.lang.String"/>
+		<field name="user_name" class="java.lang.String"/>
+		<field name="str_manuf_code" class="java.lang.String"/>
+		<field name="str_filename" class="java.lang.String"/>
+		<field name="num_document_id" class="java.lang.Integer"/>
+		<field name="num_upload_id" class="java.lang.Integer"/>
+		<field name="createddate" class="java.lang.String"/>
+		<field name="createdtime" class="java.lang.String"/>
+		<field name="num_type_id" class="java.lang.Integer"/>
+		<field name="org_name" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="userid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sysdate]]>
+	</queryString>
+	<field name="sysdate" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="169" y="15" width="223" height="26" uuid="d0922421-1948-4ba6-8952-16424e4f1c2d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Uploaded XML Details"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="143" height="52" uuid="5cb9fee0-0bb4-419b-b18d-d810ea9cc7f1"/>
+				<imageExpression><![CDATA["..//images//pharmexcil_logo_small.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="103">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="23" width="555" height="50" uuid="48cbb23c-24de-457d-92aa-7326a14a0bcc"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="uploaded data" uuid="13d68978-e60a-4dfd-b404-76abd1a462b9">
+						<datasetParameter name="userid">
+							<datasetParameterExpression><![CDATA[$P{userid}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="20" uuid="5eed9aab-81a8-494d-83a9-ff7b53d20e76">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="20" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="cab0908d-b512-42e1-8e10-68c5b5284c9d"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["S. No."]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="20" height="27" uuid="5c0292c9-2e92-4f13-9ff5-c46be2c6f8f9"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{rownum}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="81" uuid="392507b5-4e16-485e-a3cd-f49b572c8055">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="81" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="0bd998c9-9911-497f-8a38-4bd564767e8a"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Purpose Type"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="81" height="27" uuid="7e3ff498-b705-43bf-85dc-0d78a31e5cee"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_remarks}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="101" uuid="5ebc14b5-722e-4f22-a920-fcb63adf019b">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="101" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="17c0b85b-e9f8-49bf-bf09-2c80fea52cd7"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["User Name"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="101" height="27" uuid="9801daa6-641a-4d57-a4a5-67ec400e96f3"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{user_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="103" uuid="52b7b165-49e1-434d-a9dd-66ae0432d571">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="103" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="af540020-23ce-4808-a342-6debf1cf10d0"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Company Name"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="103" height="27" uuid="fa33a66e-0a88-4619-9be7-51e2423f1479"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{org_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="98" uuid="7db6b541-a751-454b-89c1-a49dd7de468c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="98" height="30" uuid="d240c0a5-ac03-426d-aaa1-6bd73a2e200d"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["User Code"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="98" height="27" uuid="4c7eab3d-ea69-48b9-aedf-d4332f750721"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_manuf_code}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="76" uuid="1d7ccfce-ce0a-41c7-b0ea-dc1e115f7e73">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="76" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="b09cffc1-5928-48e5-871e-074412418ebd"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Uploaded Date"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="76" height="27" uuid="b04d039f-4a0e-4485-a3e3-97520ad138b5"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{createddate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="74" uuid="d45b6c01-bda8-4ceb-9d65-86a2dd8ddcb6">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="74" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="0330f040-a0cb-4806-bd47-1e250fb3d70f"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Uploaded Time"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="74" height="27" uuid="a7591030-cd2b-4fbd-9b17-bb803dc9df43"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{createdtime}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="455" y="30" width="100" height="20" uuid="15111ff7-7112-4897-b989-d3f6d6686514"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PRODUCTS_LIST>
+    <FILENAME>abcdeP0123459876</FILENAME>
+    <MANUFACTURER_CODE>abc</MANUFACTURER_CODE>
+    <PRODUCT>
+        <PRODUCT_TYPE>B</PRODUCT_TYPE>
+        <GENERIC_NAME>Donepezil Hydrochloride</GENERIC_NAME>
+        <STORAGE_CONDITION>25°c</STORAGE_CONDITION>
+        <HS_CODE>12345678</HS_CODE>
+    </PRODUCT>
+    <PRODUCT>
+        <PRODUCT_TYPE>F</PRODUCT_TYPE>
+        <PRODUCT_CODE>123ASD1DF</PRODUCT_CODE>
+        <PRODUCT_NAME>PRODUCT_NAME</PRODUCT_NAME>
+        <GENERIC_NAME>Donepezil Hydrochloride</GENERIC_NAME>
+        <COMPOSITION>Each film coated tablet contains: Donepezil Hydrochloride 5 mg</COMPOSITION>
+        <SCHEDULED>Y</SCHEDULED>
+        <REMARK>REMARK</REMARK>
+        <STORAGE_CONDITION>2°c</STORAGE_CONDITION>
+        <STRENGTH>5mg</STRENGTH>
+        <DOSAGE>Tablets</DOSAGE>
+        <HS_CODE>12345679</HS_CODE>
+    </PRODUCT>
+    <PRODUCT>
+        <PRODUCT_TYPE>B</PRODUCT_TYPE>
+        <GENERIC_NAME>Tacrolimus Monohydrate</GENERIC_NAME>
+        <STORAGE_CONDITION>2°c</STORAGE_CONDITION>
+        <HS_CODE>12345679</HS_CODE>
+    </PRODUCT>
+    <PRODUCT>
+        <PRODUCT_TYPE>B</PRODUCT_TYPE>
+        <GENERIC_NAME>Donepezil Hydrochloride</GENERIC_NAME>
+        <STORAGE_CONDITION>25°c</STORAGE_CONDITION>
+        <HS_CODE>12345679</HS_CODE>
+    </PRODUCT>
+</PRODUCTS_LIST>

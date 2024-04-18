@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: LENOVO
+Build-Jdk: 17.0.7
+Implementation-Title: DAVA_PORTAL
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: in.cdacnoida
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/DAVA_PORTAL
+Created-By: Maven Integration for Eclipse
+

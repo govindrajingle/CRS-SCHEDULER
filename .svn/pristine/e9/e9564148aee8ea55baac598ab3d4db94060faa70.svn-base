@@ -1,0 +1,8 @@
+#upload.xmlPath=//opt//uat_pharma_excil_8080//webapps//IVEDA//WEB-INF//XML//
+#upload.xsdPath=//opt//uat_pharma_excil_8080//webapps//IVEDA//WEB-INF//XSD//
+#upload.certPath=C://Users//deepshikha.CDACNOIDA//Desktop//RishiSir.cer
+
+
+upload.xmlPath=F://DAVA_DEV//DAVA_PORTAL//src//main//webapp//WEB-INF//XML//
+upload.xsdPath=F://DAVA_DEV//DAVA_PORTAL//src//main//webapp//WEB-INF//XSD//
+upload.certPath=C://Users//deepshikha.CDACNOIDA//Desktop//RishiSir.cer

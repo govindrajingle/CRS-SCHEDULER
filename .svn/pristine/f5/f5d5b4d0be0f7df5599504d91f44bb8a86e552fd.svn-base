@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CorporateDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8e66477-9178-4a83-add7-37d51ebc0901">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="corporate data" uuid="1dca2a6e-e4b8-46d3-af92-d8e5f1c4d6d0">
+		<parameter name="status" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select rownum,user_id, user_name, applicant_type, nvl(str_appl_type_name, 'NA') str_appl_type_name, cont_pers_email, contact_per_desg, to_char(created_date,'dd-Mon-YYYY')createddate , nvl(org_address,'NA') org_address, nvl(org_contact_number,'NA') org_contact_number, case org_country_id when 193 then 'India' else 'NA' end as country, org_dist_id, str_district_name, nvl(org_email_id,'NA') org_email_id, org_fax_number, nvl(org_name,'NA') org_name, org_pan_number, org_pincode, org_state_id, nvl(s.str_state_name,'NA') str_state_name, org_type, nvl(org_website,'NA') org_website, nvl(str_rcmc_no,'NA') str_rcmc_no, ur.num_approval_status_pharmaexil, case ur.num_approval_status_pharmaexil when 0 then 'Pending' when 1 then 'Approved' else 'Rejected' end as pharmstatus from (((dava.user_registration ur JOIN dava.applicant_type_mst a on(ur.applicant_type=a.num_appl_type_id)) JOIN dava.states_mst s on(ur.org_state_id = s.num_state_id)) JOIN dava.district_mst d on (ur.org_dist_id = d.num_district_id)) where num_approval_status_pharmaexil=$P{status}]]>
+		</queryString>
+		<field name="rownum" class="java.lang.Long"/>
+		<field name="user_id" class="java.lang.Long"/>
+		<field name="user_name" class="java.lang.String"/>
+		<field name="applicant_type" class="java.lang.String"/>
+		<field name="str_appl_type_name" class="java.lang.String">
+			<fieldDescription><![CDATA[appl type name]]></fieldDescription>
+		</field>
+		<field name="cont_pers_email" class="java.lang.String"/>
+		<field name="contact_per_desg" class="java.lang.String"/>
+		<field name="createddate" class="java.lang.String"/>
+		<field name="org_address" class="java.lang.String"/>
+		<field name="org_contact_number" class="java.lang.String"/>
+		<field name="country" class="java.lang.String"/>
+		<field name="org_dist_id" class="java.lang.Integer"/>
+		<field name="str_district_name" class="java.lang.String"/>
+		<field name="org_email_id" class="java.lang.String"/>
+		<field name="org_fax_number" class="java.lang.String"/>
+		<field name="org_name" class="java.lang.String"/>
+		<field name="org_pan_number" class="java.lang.String"/>
+		<field name="org_pincode" class="java.lang.Integer"/>
+		<field name="org_state_id" class="java.lang.Integer"/>
+		<field name="str_state_name" class="java.lang.String"/>
+		<field name="org_type" class="java.lang.String"/>
+		<field name="org_website" class="java.lang.String"/>
+		<field name="str_rcmc_no" class="java.lang.String"/>
+		<field name="num_approval_status_pharmaexil" class="java.lang.Integer"/>
+		<field name="pharmstatus" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="status" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sysdate]]>
+	</queryString>
+	<field name="sysdate" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="177" y="15" width="223" height="29" uuid="ea9dce7b-f623-433b-a5d8-72f2dbcb1227"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Corporate Details"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="132" height="44" uuid="3df716df-b3f4-456d-850f-b5af17731678"/>
+				<imageExpression><![CDATA["..//images//pharmexcil_logo_small.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="67">
+			<componentElement>
+				<reportElement key="table" style="table" isPrintRepeatedValues="false" mode="Opaque" x="0" y="0" width="555" height="59" uuid="5f8a11e8-4999-43c2-bb00-27b0c527e1c4"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="corporate data" uuid="2975af51-1703-48d4-8b02-9391ecf90bce">
+						<datasetParameter name="status">
+							<datasetParameterExpression><![CDATA[$P{status}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="27" uuid="1ecd1a8d-9de2-4c34-a9a9-d326bcf06056">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="24" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="aed3f27f-6433-48b4-9541-01c7b4878b5c"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["S. No."]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="24" height="30" uuid="42741b14-fad6-432f-af28-384aeee1c036"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{rownum}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="77" uuid="b9aeff0c-2897-4389-89fa-2cd37e77e624">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="75" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="b6220b01-bfa3-4cc7-aaba-ccd3770d6778"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["User Name"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="75" height="30" uuid="1a35f0f6-2eb7-4572-8b29-2ff018204b41"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{user_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="77" uuid="3f5d1b7d-0438-47c5-b57c-9a4d79ec345d">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="75" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="04368546-fb86-4164-b327-68821337dcc0"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Applicant Type"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="77" height="30" uuid="a0883be4-0299-4a6e-8bde-6ff41168a947"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_appl_type_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="acfa0191-327f-4375-841d-4f28c2c9a01c">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="68" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="a18d29b9-ed10-4445-a89e-885f8bac0e80"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Organisation Name"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="68" height="30" uuid="6de15908-8c66-416b-b4db-dc726d29c816"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{org_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="4fc5c06d-b176-4bb7-b822-023ec2a37ac2">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="90" height="30" uuid="64eb3b39-ec41-4c52-81d1-1e0361a25c4d"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Organisation Address"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="90" height="30" uuid="21751493-d446-40a0-a012-2c0baf3901a3"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{org_address}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="73" uuid="0868c0f7-c963-46da-9d10-6cd3289c3d7f">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="71" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="f856811c-1873-49fb-af34-a07586080bb1"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["State"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="73" height="30" uuid="fcdcdc0f-54b5-4545-8f32-399e41dec34d"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_state_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="768bad1f-541a-4ab0-95dd-a6ce19eced82">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="70" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="dfe78881-6435-4aa4-9920-28df1bc182f9"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["E-mail Address"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="0" y="0" width="70" height="30" uuid="82e90b71-fb01-4987-9740-f6e967c5dd00"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{org_email_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="13ecf361-0a16-489c-932d-e03d3822d8b8">
+						<jr:tableHeader style="table" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+								<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="63" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="a85a69a5-70ce-4114-8d41-dc5ddc5dd1e8"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA["RCMC Number"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="65" height="30" uuid="41619f1c-60d6-4b4d-8ca5-ddbeb08478a0"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_rcmc_no}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="455" y="30" width="100" height="20" uuid="26a0ad82-2142-41fe-b727-f354ec570226"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

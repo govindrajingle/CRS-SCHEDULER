@@ -1,0 +1,46 @@
+---------------------------------------------------------
+Schema Files version 1.6 updates
+---------------------------------------------------------
+1. Consignment Xsd updates
+	a)EWay_Bill_No ,Bill_Date ,RegionCD ,CountryOfExp ,PortName ,LandingPort - all these fields are optional now.
+	b)ParentCD, CODE_SNo are alphanumeric now.
+	c)RegionCD maximum length is 8 now.
+
+2. Product Xsd 
+	-- Schedule Drug maximum length is 2 characters now.
+
+
+---------------------------------------------------------
+Schema Files version 1.5 updates
+---------------------------------------------------------
+1. Consignment Xsd updates
+	a) Secondary tag SSCC number will be optional in case of no aggregation.
+	b) In srno tag alphanumeric serial number is allowed.
+
+
+2. Product Xsd 
+	-- Manufacturing site code is added under product tag.
+
+
+----------------------------------------------------------
+Excel Formats version 1.5 (Excel To Xml Conversion)
+----------------------------------------------------------
+
+1. Latest EXCEL format for consignment is released.
+2. Latest EXCEL format for product is released.
+
+
+----------------------------------------------------------
+Desktop App version 1.3
+----------------------------------------------------------
+1. Excel to XML conversion functionality is released. 
+
+----------------------------------------------------------
+Schema Files version 1.7 updates
+----------------------------------------------------------
+1.New Fields PRIMARY_GTIN,S1_GTIN,S2_GTIN,S3_GTIN,TERTIARY_GTIN is added after Hscode field.
+
+----------------------------------------------------------
+Excel Formats version 1.5 ( Product Excel To Xml Conversion)
+----------------------------------------------------------
+1.New Fields PRIMARY_GTIN,S1_GTIN,S2_GTIN,S3_GTIN,TERTIARY_GTIN is added after Hscode field.

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PRODUCTS_LIST>
+    <FILENAME>abcdeP1234561234</FILENAME>
+    <MANUFACTURER_CODE>026</MANUFACTURER_CODE>
+    <PRODUCT>
+        <ManufacturingSiteCode>02601</ManufacturingSiteCode>
+        <PRODUCT_TYPE>B</PRODUCT_TYPE>
+        <GENERIC_NAME>GENERIC_NAME1</GENERIC_NAME>
+        <STORAGE_CONDITION>20 degree celcius</STORAGE_CONDITION>
+        <HS_CODE>12345678</HS_CODE>
+    </PRODUCT>
+    <PRODUCT>
+        <ManufacturingSiteCode>02601</ManufacturingSiteCode>
+        <PRODUCT_TYPE>F</PRODUCT_TYPE>
+        <PRODUCT_NAME>PRODUCT_NAME1</PRODUCT_NAME>
+        <GENERIC_NAME>GENERIC_NAME1</GENERIC_NAME>
+        <COMPOSITION>COMPOSITION1</COMPOSITION>
+        <SCHEDULED>Y</SCHEDULED>
+        <REMARK>REMARK1</REMARK>
+        <STORAGE_CONDITION>10 degree celcius</STORAGE_CONDITION>
+        <STRENGTH>STRENGTH1</STRENGTH>
+        <DOSAGE>DOSAGE1</DOSAGE>
+        <HS_CODE>12345678</HS_CODE>
+    </PRODUCT>
+    <PRODUCT>
+        <ManufacturingSiteCode>02601</ManufacturingSiteCode>
+        <PRODUCT_TYPE>B</PRODUCT_TYPE>
+        <GENERIC_NAME>GENERIC_NAME1</GENERIC_NAME>
+        <STORAGE_CONDITION>20 degree celcius</STORAGE_CONDITION>
+        <HS_CODE>12345678</HS_CODE>
+    </PRODUCT>
+    <PRODUCT>
+        <ManufacturingSiteCode>02601</ManufacturingSiteCode>
+        <PRODUCT_TYPE>B</PRODUCT_TYPE>
+        <GENERIC_NAME>GENERIC_NAME1</GENERIC_NAME>
+        <STORAGE_CONDITION>10 degree celcius</STORAGE_CONDITION>
+        <HS_CODE>12345678</HS_CODE>
+    </PRODUCT>
+</PRODUCTS_LIST>

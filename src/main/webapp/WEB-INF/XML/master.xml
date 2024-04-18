@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+
+***** If you are using more than one function in javascript than use comma(,) in between them...
+***** If you are using only one function in javascript than no need of small brackets( ) in last...
+
+-->
+
+
+<Master>
+
+<form name="thematic_area_master" title="Thematic Area">
+<input name="NSC_10_0_NUM_THEMATIC_AREA_ID"   Date="false"  type="text" IntialValue="10000" onfocus=""  PrimaryKey="y" maxlength="4" class="readonly" javascript="">Thematic Area Id (Auto Generated)</input>
+<input name="NSC_11_1_STR_THEMATIC_AREA_NAME" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="50" class="mandatorylarge" javascript="isAlphaNumeric">Thematic Area</input>	
+<input name="NSC_12_1_DT_START_DATE" Date="true" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="50" class="readonly" javascript="compareFromToDateThArea(NSC_13_1_DT_END_DATE,NSC_12_1_DT_START_DATE)">Start Date(dd-mm-yyyy)</input>
+<input name="NSC_13_1_DT_END_DATE" Date="true" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="50" class="readonly" javascript="compareFromToDateThArea(NSC_13_1_DT_END_DATE,NSC_12_1_DT_START_DATE)">End Date (dd-mm-yyyy)</input>	
+   <table name="TDC.TDC_THEMATIC_AREA_MASTER"></table>
+</form>
+
+<form name="document_type_master" title="Types of Documents">
+<input name="NSC_10_0_NUM_DOC_TYPE_ID"   Date="false"  type="text" IntialValue="10000" onfocus=""  PrimaryKey="y" maxlength="4" class="readonly" javascript="">Document Type Id (Auto Generated)</input>
+<input name="NSC_11_1_STR_DOC_TYPE_NAME" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="80" class="mandatorylarge" javascript="isAlphabet">Type of Document</input>	
+<table name="TDC.TDC_DOC_TYPE_MASTER"></table>
+</form>
+
+<form name="state_master" title="States">
+<input name="NSC_10_0_NUM_STATE_ID"   Date="false"  type="text" IntialValue="1" onfocus=""  PrimaryKey="y" maxlength="4" class="readonly" javascript="">State Area Id (Auto Generated)</input>
+<input name="NSC_11_1_STR_STATE_NAME" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="80" class="mandatorylarge" javascript="isAlphaNumeric">State name</input>	
+<input name="NSC_12_1_STR_STATE_SHORT_NAME" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="80" class="mandatorylarge" javascript="isAlphaNumeric">State Short name</input>	
+<table name="TDC.TDC_STATES"></table>
+</form>
+
+<form name="city_master" title="City Master">
+    	<input name="NSC_10_0_NUM_CITY_ID" Date="false" IntialValue="1000" onfocus="trimMasterValues"  PrimaryKey="y" type="text"  maxlength="4" class="readonly" javascript="">City Code (Auto Generated)</input>
+       <input name="NSC_11_1_STR_CITY_NAME"  onfocus="trimMasterValues"  PrimaryKey="n" Date="false" type="text"  maxlength="50" class="mandatorysmall" javascript="isAlphaNumeric">City Name</input>	
+       <input name="NSC_12_1_STR_CITY_SHORT_NAME"  onfocus="trimMasterValues"  PrimaryKey="n" Date="false" type="text"  maxlength="10" class="mandatorysmall" javascript="isAlphaNumeric">City Short Name</input>	
+       <input name="NSC_13_1_NUM_STATE_ID" onfocus="trimMasterValues"  PrimaryKey="n" Date="false" type="selectDynamic" multiselect="No"  maxlength="2" size="1" class="comboboxlarge" javascript="">State
+         <query> SELECT NUM_STATE_ID, STR_STATE_NAME FROM TDC_STATES ORDER BY STR_STATE_NAME   </query> 	
+      </input> 
+	        
+       <table name="TDC.TDC_CITIES"></table>
+</form>
+
+<form name="work_group_master" title="Work Group Master">
+<input name="NSC_10_0_NUM_WRK_GRP_ID"   Date="false"  type="text" IntialValue="10000" onfocus=""  PrimaryKey="y" maxlength="5" class="readonly" javascript="">Work Group Id (Auto Generated)</input>
+<input name="NSC_11_1_STR_WRK_GRP_NAME" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="50" class="mandatorylarge" javascript="isAlphaNumeric">Work Group Name</input>	
+<!--input name="NSC_12_1_NUM_THEMATIC_AREA_ID"  PrimaryKey="n" Date="false" type="selectDynamic" multiselect="No"  maxlength="2" size="1" class="comboboxlarge" javascript="">Thematic Area
+<query>	select NUM_THEMATIC_AREA_ID, STR_THEMATIC_AREA_NAME from tdcportal.TDC_THEMATIC_AREA_MASTER </query></input-->	
+<input name="NSC_13_1_DT_START_DATE" Date="true" type="text"  onfocus="trimMasterValues" class="readonly"  PrimaryKey="n"  maxlength="50" javascript="isDate">Start Date(dd-mm-yyyy)</input>
+   <table name="TDC.TDC_WRK_GRP_MASTER"></table>
+</form>
+
+
+<form name="organisation_status_master" title="Organization Status">
+<input name="NSC_10_0_TDC_ORG_STATUS_ID"   Date="false"  type="text" IntialValue="10000" onfocus=""  PrimaryKey="y" maxlength="4" class="readonly" javascript="">Status Id (Auto Generated)</input>
+<input name="NSC_11_1_TDC_ORG_DISCRIPTION" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="80" class="mandatorylarge" javascript="isAlphaNumeric(NSC_11_1_TDC_ORG_DISCRIPTION),isOnlyNumber(NSC_11_1_TDC_ORG_DISCRIPTION)">Organization Status Description</input>	
+<table name="TDC.TDC_ORG_STATUS_MASTER"></table>
+</form>
+
+
+<form name="parameter_master" title="Parameter Master">
+<input name="NSC_10_0_NUM_PARAMETER_ID"   Date="false"  type="text" IntialValue="10000" onfocus=""  PrimaryKey="y" maxlength="4" class="readonly" javascript="">Parameter Id (Auto Generated)</input>
+<input name="NSC_11_1_STR_PARAMETER_NAME" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="80" class="mandatorylarge" javascript="isAlphaNumeric">Parameter Name</input>
+<input name="NSC_12_1_NUM_MIN_ACCEPTABLE_SCORE" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="5" class="mandatorylarge" javascript="checkValue(),isDecimal(NSC_12_1_NUM_MIN_ACCEPTABLE_SCORE,3,2)">Minimum Acceptable Score</input>	
+<input name="NSC_13_1_NUM_MAX_ACCEPTABLE_SCORE" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="5" class="mandatorylarge" javascript="checkValue(),isDecimal(NSC_13_1_NUM_MAX_ACCEPTABLE_SCORE,3,2)">Maximum Acceptable Score</input>	
+<input name="NSC_14_1_STR_PARAMETER_DESC" Date="false" type="text"  onfocus="trimMasterValues"  PrimaryKey="n"  maxlength="80" class="mandatorylarge" javascript="isAlphaNumeric">Parameter Description</input>	
+
+
+<table name="TDC.TDC_THEMATIC_PARAMETER_DETAILS"></table>
+</form>
+
+
+
+</Master>

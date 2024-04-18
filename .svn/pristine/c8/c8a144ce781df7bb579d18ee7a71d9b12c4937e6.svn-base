@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProductDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f71923bd-6dd9-44ae-b9c5-afb615a9071e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="73ba7e01-d5f4-4c50-b236-3e6dbc6d7021">
+		<parameter name="prodtype" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="hscode" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select rownum,num_drug_id, num_drug_type,str_manufacturing_unit, nvl(str_generic_name,'NA') str_generic_name, nvl(dava.manufacture_units_name( str_manufacturing_unit),'NA') manufacturingunit, nvl(dosagename( num_dosage_form),'NA') as str_dosage_name, nvl(drug_typename(num_drug_type),'NA') str_type_name, nvl(str_brand_name,'NA') str_brand_name, nvl(schedulename(num_schedule_id),'NA') as str_schedule_name, nvl(str_strength,'NA') str_strength, nvl(storagecondition (num_storage_condition),'NA') as str_condition_name, nvl(str_composition,'NA') str_composition,d.num_hs_code,d.num_hs_code || ' ' ||  (select str_commodity_name from hscode_mst hs where d.num_hs_code = hs.num_hscode) as hscode, nvl(str_gtin_no,'NA') str_gtin_no from drug_mst d where d.num_isvalid = 1  and d.num_drug_type=$P{prodtype} and num_hs_code =$P{hscode}]]>
+		</queryString>
+		<field name="rownum" class="java.lang.Long"/>
+		<field name="num_drug_id" class="java.lang.Integer"/>
+		<field name="num_drug_type" class="java.lang.Integer"/>
+		<field name="str_manufacturing_unit" class="java.lang.String"/>
+		<field name="str_generic_name" class="java.lang.String"/>
+		<field name="manufacturingunit" class="java.lang.String"/>
+		<field name="str_dosage_name" class="java.lang.String"/>
+		<field name="str_type_name" class="java.lang.String"/>
+		<field name="str_brand_name" class="java.lang.String"/>
+		<field name="str_schedule_name" class="java.lang.String"/>
+		<field name="str_strength" class="java.lang.String"/>
+		<field name="str_condition_name" class="java.lang.String"/>
+		<field name="str_composition" class="java.lang.String"/>
+		<field name="num_hs_code" class="java.math.BigDecimal"/>
+		<field name="hscode" class="java.lang.String"/>
+		<field name="str_gtin_no" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="prodtype" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hscode" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sysdate]]>
+	</queryString>
+	<field name="sysdate" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="157" y="13" width="223" height="29" uuid="ce7bc154-51bc-44a7-9a6f-223fdbb64d23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Product Details"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="139" height="42" uuid="f3b0c417-d0a8-43b7-9eca-35e49a429a62"/>
+				<imageExpression><![CDATA["..//images//pharmexcil_logo_small.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="88">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="18" width="555" height="50" uuid="f0028336-fb49-4997-bd5f-a1ed16f77af9"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="0512270a-f988-451e-83f0-f7ee03974132">
+						<datasetParameter name="prodtype">
+							<datasetParameterExpression><![CDATA[$P{prodtype}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="hscode">
+							<datasetParameterExpression><![CDATA[$P{hscode}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="46" uuid="5d0e3c34-6add-47dc-aa56-234d3cff1440">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="45" height="30" uuid="330afbe9-777f-41ba-83df-39b1b12e7702"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["S.No."]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="45" height="20" uuid="ef827dca-5ae3-4c83-a07f-584649509aa6"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{rownum}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d7faece3-3c80-4cbb-b2f5-33a4f4834ecd">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="94860acf-539c-4f36-93d2-02ad6fe1dd01"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true" isStrikeThrough="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Generic Name"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="59f1cc6c-d657-43e6-837c-dafe2ca43c23"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_generic_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="bf3b0853-7589-4a2c-b28a-705e0481e15a">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="e30b1f44-81e7-45e4-8c52-7c10081e51ad"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Manufacturing Unit"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="d1cf3fce-eb15-484c-934a-6451ad8071f2"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{manufacturingunit}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="c6d6300f-5496-44ca-97a6-d17bd04f9336">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="4dbaf2bc-7c58-454c-ae3a-3b5809a6d166"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Brand Name"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="492ac672-323d-4759-b544-766a1fc77f38"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_brand_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="203e3833-7f20-4ab9-b071-8fc12c0129b5">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="3787b05e-8222-4905-ba42-2d51aa4a2147"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true" isStrikeThrough="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA["HS Code"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="eabdf3c5-7b3e-4f8b-9d82-f8b2c6f7afb4"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{hscode}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="269cf609-6144-4352-9f17-38eb26854d0d">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="c0b277fd-237b-41f1-93b7-e5e27087ed37"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Storage Condition"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="53554dd3-408d-414e-8146-5dd565390d35"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_condition_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="01fd5898-d752-49dc-8e26-7740e8f78c58">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="36c3e272-d09a-4eaa-8456-39c2ae29902b"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Product Type"]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="13686899-4307-4e7d-a357-ef7635dad6ea"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{str_type_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="455" y="30" width="100" height="20" uuid="7cd13f4f-b0c4-46d7-9529-ea02533ea175"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

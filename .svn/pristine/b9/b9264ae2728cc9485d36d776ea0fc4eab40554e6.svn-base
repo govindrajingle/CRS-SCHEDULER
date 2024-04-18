@@ -1,0 +1,197 @@
+package in.cdacnoida.dava.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name="point_distribution_mst")
+public class PointOfDistributionMst extends TransactionInfoDomain implements Serializable{
+
+	private static final long serialVersionUID = -6048595144903121228L;
+	
+	@Id
+	@Column(name="num_distribution_id")
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="generator")
+	@TableGenerator(name="generator", initialValue=1000, allocationSize=1)
+	Integer numDistributionId; 
+	
+	@Column(name="num_inst_id")
+	Integer numInstId;
+	
+	@Column(name="num_generic_name")
+	Integer numGenName;
+	
+	@Column(name="num_hs_code")
+	Integer numHSCode;
+	
+	@Column(name="str_goods_name")
+	String strGoodsName;
+	
+	@Column(name="str_goods_address")
+	String strGoodsAddress;
+	
+	@Column(name="str_goods_city")
+	String strGoodsCity;
+	
+	@Column(name="str_pincode")
+	String strPinCode;
+	
+	@Column(name="num_region_id")
+	Integer numRegionId;
+	
+	@Column(name="num_country_id")
+	Integer numCountryId;
+	
+	@Column(name="str_country_ids")
+	String strCountryIds;
+	
+	@Column(name="num_means_transport_id")
+	Integer numMeansTransportId;
+	
+	@Column(name="str_from_transport_city")
+	String strFromTransportCity;
+	
+	@Column(name="num_from_transport_country")
+	Integer numFromTransportCountry;
+	
+	@Column(name="str_to_transport_city")
+	String strToTransportCity;
+	
+	@Column(name="num_to_transport_country")
+	Integer numToTransportCountry;
+
+	public Integer getNumDistributionId() {
+		return numDistributionId;
+	}
+
+	public void setNumDistributionId(Integer numDistributionId) {
+		this.numDistributionId = numDistributionId;
+	}
+
+	public Integer getNumInstId() {
+		return numInstId;
+	}
+
+	public void setNumInstId(Integer numInstId) {
+		this.numInstId = numInstId;
+	}
+
+	public Integer getNumGenName() {
+		return numGenName;
+	}
+
+	public void setNumGenName(Integer numGenName) {
+		this.numGenName = numGenName;
+	}
+
+	public Integer getNumHSCode() {
+		return numHSCode;
+	}
+
+	public void setNumHSCode(Integer numHSCode) {
+		this.numHSCode = numHSCode;
+	}
+
+	public String getStrGoodsName() {
+		return strGoodsName;
+	}
+
+	public void setStrGoodsName(String strGoodsName) {
+		this.strGoodsName = strGoodsName;
+	}
+
+	public String getStrGoodsAddress() {
+		return strGoodsAddress;
+	}
+
+	public void setStrGoodsAddress(String strGoodsAddress) {
+		this.strGoodsAddress = strGoodsAddress;
+	}
+
+	public String getStrGoodsCity() {
+		return strGoodsCity;
+	}
+
+	public void setStrGoodsCity(String strGoodsCity) {
+		this.strGoodsCity = strGoodsCity;
+	}
+
+	public String getStrPinCode() {
+		return strPinCode;
+	}
+
+	public void setStrPinCode(String strPinCode) {
+		this.strPinCode = strPinCode;
+	}
+
+	public Integer getNumRegionId() {
+		return numRegionId;
+	}
+
+	public void setNumRegionId(Integer numRegionId) {
+		this.numRegionId = numRegionId;
+	}
+
+	public Integer getNumCountryId() {
+		return numCountryId;
+	}
+
+	public void setNumCountryId(Integer numCountryId) {
+		this.numCountryId = numCountryId;
+	}
+
+	public String getStrCountryIds() {
+		return strCountryIds;
+	}
+
+	public void setStrCountryIds(String strCountryIds) {
+		this.strCountryIds = strCountryIds;
+	}
+
+	public Integer getNumMeansTransportId() {
+		return numMeansTransportId;
+	}
+
+	public void setNumMeansTransportId(Integer numMeansTransportId) {
+		this.numMeansTransportId = numMeansTransportId;
+	}
+
+	public String getStrFromTransportCity() {
+		return strFromTransportCity;
+	}
+
+	public void setStrFromTransportCity(String strFromTransportCity) {
+		this.strFromTransportCity = strFromTransportCity;
+	}
+
+	public Integer getNumFromTransportCountry() {
+		return numFromTransportCountry;
+	}
+
+	public void setNumFromTransportCountry(Integer numFromTransportCountry) {
+		this.numFromTransportCountry = numFromTransportCountry;
+	}
+
+	public String getStrToTransportCity() {
+		return strToTransportCity;
+	}
+
+	public void setStrToTransportCity(String strToTransportCity) {
+		this.strToTransportCity = strToTransportCity;
+	}
+
+	public Integer getNumToTransportCountry() {
+		return numToTransportCountry;
+	}
+
+	public void setNumToTransportCountry(Integer numToTransportCountry) {
+		this.numToTransportCountry = numToTransportCountry;
+	}
+}

@@ -1,0 +1,22 @@
+mail.port=587
+mail.from=onlinepharmaexcil-noida@cdac.in
+mail.smtp_host_name = smtp.cdac.in
+mail.smtp_auth_user =  cdscoonline-noida
+mail.smtp_auth_pass  = MAILonline@#$123
+mail.emailFromAddress = onlinepharmaexcil-noida@cdac.in
+mail.emailCC=dummysavior@gmail.com
+mail.emailAdvAddress =dummysavior@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+

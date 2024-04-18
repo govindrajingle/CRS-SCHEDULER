@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConsignmentDetails xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="IVEDAExporterPackingDtl.xsd">
+  <SENDER_MANUFACTURER_CODE>GH1</SENDER_MANUFACTURER_CODE>
+  <FILENAME>LKUHTT0123450875</FILENAME>
+  <FILE_DATE>2001-01-01</FILE_DATE>
+  <FILE_TIME>12:00:00</FILE_TIME>
+  <SupplyType>COM</SupplyType>
+  <SERIALIZATION_TYPE>IVD</SERIALIZATION_TYPE>
+  <EWay_Bill_No>KSEDOIU431</EWay_Bill_No>
+  <Bill_Date>2001-01-01</Bill_Date>
+  <RegionCD>EU</RegionCD>
+  <CountryOfExp>Country Of Exp</CountryOfExp>
+  <CompanyName>CCN India pvt ltd</CompanyName>
+  <CompanyAddress>Noida - 201010</CompanyAddress>
+  <PortName>Port Pvt ltd</PortName>
+  <LandingPort>Mumbai</LandingPort>
+  <Prod_List>
+    <Product>
+      <ProductName>Flexon</ProductName>
+      <ProdCode>167229YZ</ProdCode>
+      <BATCH_NUMBER>BA1234567</BATCH_NUMBER>
+      <EXPIRY_DATE>2001-01-01</EXPIRY_DATE>
+      <HS_CODE>12345678</HS_CODE>
+      <PROCUREMENT_SOURCE_GSTN>ASDFRT1245786</PROCUREMENT_SOURCE_GSTN>
+      <PROCUREMENT_SOURCE_NAME>PROCUREMENT SOURCE NAME</PROCUREMENT_SOURCE_NAME>
+      <PROCUREMENT_SOURCE_ADDRESS>PROCUREMENT SOURCE ADDRESS</PROCUREMENT_SOURCE_ADDRESS>
+    </Product>
+  </Prod_List>
+  <TertiaryCount>1</TertiaryCount>
+  <TERTIARY>
+    <TertiaryType>HOMO</TertiaryType>
+    <ProductCount>1</ProductCount>
+    <SSCC>1IUH001234500000</SSCC>
+    <Product>
+      <ProdCode>167229YZ</ProdCode>
+      <BATCH_NUMBER> AR2346 </BATCH_NUMBER>
+    </Product>
+  </TERTIARY>
+  <SEC_LIST>
+    <SECONDARY>
+      <SSCC>1IUH001234500000</SSCC>
+      <Type>HOMO</Type>
+      <Level>1</Level>
+      <ParentCD>11111222233334444</ParentCD>
+      <CODE_SNo>11111222233334444567890</CODE_SNo>
+      <Product>
+        <ProdCode>167229YZ</ProdCode>
+        <BATCH_NUMBER>AR2346</BATCH_NUMBER>
+        <SubCount>2</SubCount>
+        <List_srno>
+            <srno>11111222233334442</srno>
+            <srno>11111222233334446</srno>
+            <srno>11111222233334448</srno>
+            <srno>11111222233334440</srno>
+            <srno>11111222233334441</srno>
+		</List_srno>
+      </Product>
+    </SECONDARY>
+  </SEC_LIST>
+</ConsignmentDetails>

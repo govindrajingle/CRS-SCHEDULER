@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="ConsignmentDetails">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SENDER_MANUFACTURER_CODE">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="3" />
+							<xs:pattern value="([a-zA-Z0-9/-])*" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FILENAME">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="16" />
+				              <!-- file name is of 16 digit code -->
+				              <xs:pattern value="[a-zA-Z0-9/-]{5}T[0-9]{6}[0-9]{4}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FILE_DATE" type="xs:date" />
+				<xs:element name="FILE_TIME" type="xs:time" />
+				<xs:element name="SupplyType">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="3" />
+							<xs:pattern value="COM|TRL|NGO" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SERIALIZATION_TYPE">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="3" />
+							<xs:pattern value="GS1|IVD" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EWay_Bill_No">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3" />
+							<xs:maxLength value="20" />
+							<xs:pattern value="([a-zA-Z0-9/-])*" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Bill_Date" type="xs:date" />
+				<xs:element name="RegionCD">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="2" />
+							<xs:maxLength value="4" />
+							<xs:pattern value="([a-zA-Z0-9/-])*" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="CountryOfExp">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3" />
+							<xs:maxLength value="50" />
+							<xs:pattern value="([\sA-Za-z0-9/\.\-])*"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CompanyName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3" />
+							<xs:maxLength value="50" />
+							<xs:pattern value="([\sA-Za-z0-9/\.\-])*"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CompanyAddress">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3" />
+							<xs:maxLength value="200" />
+							<xs:pattern value="([\sA-Za-z0-9/\.\-])*"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PortName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3" />
+							<xs:maxLength value="250" />
+							<xs:pattern value="([\sA-Za-z0-9/\.\-])*"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+					<xs:element name="LandingPort">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3" />
+							<xs:maxLength value="250" />
+							<xs:pattern value="([\sA-Za-z0-9/\.\-])*"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+                                                   
+               	<xs:element maxOccurs="unbounded" name="Prod_List">
+					<xs:complexType>
+						<xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="Product">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ProductName">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="5" />
+													<xs:maxLength value="100" />
+													<xs:pattern value="([\sA-Za-z0-9/\.\-])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="ProdCode">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:length value="8" />
+													<xs:pattern value="[a-zA-Z0-9/-]{8}" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="BATCH_NUMBER">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="2" />
+													<xs:maxLength value="20" />
+													<xs:pattern
+														value="([a-zA-Z0-9/&amp;\.\-_`\s%\(\)!\*+,:;=&lt;&gt;])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="EXPIRY_DATE" type="xs:date" />
+										<xs:element name="HS_CODE">
+					                    	<xs:simpleType>
+					                          <xs:restriction base="xs:string">
+					                            <xs:length value="8"/>
+					                            <xs:pattern value="[0-9]{8}"/>
+					                          </xs:restriction>
+					                        </xs:simpleType>
+					                    </xs:element>
+										<xs:element minOccurs="0" maxOccurs="unbounded" name="PROCUREMENT_SOURCE_GSTN">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:length value="13" />
+													<xs:pattern value="[a-zA-Z0-9/-]{13}" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element minOccurs="0" maxOccurs="unbounded" name="PROCUREMENT_SOURCE_NAME">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="2" />
+													<xs:maxLength value="50" />
+													<xs:pattern
+														value="([a-zA-Z0-9/&amp;\.\-_`\s%\(\)!\*+,:;=&lt;&gt;])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element minOccurs="0" maxOccurs="unbounded" name="PROCUREMENT_SOURCE_ADDRESS">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="2" />
+													<xs:maxLength value="100" />
+													<xs:pattern
+														value="([a-zA-Z0-9/&amp;\.\-_`\s%\(\)!\*+,:;=&lt;&gt;])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+                                                      
+						</xs:sequence>
+					</xs:complexType>
+                                         </xs:element>
+
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="TertiaryCount">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1" />
+							<xs:maxLength value="10" />
+							<xs:pattern value="([0-9])*" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element maxOccurs="unbounded" name="TERTIARY">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TertiaryType">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="4" />
+										<xs:pattern value="HOMO|HETR" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="ProductCount">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1" />
+										<xs:maxLength value="10" />
+										<xs:pattern value="([0-9])*" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="SSCC">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="16" />
+										<xs:maxLength value="18" />
+										<xs:pattern value="([a-zA-Z0-9/-])*" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element maxOccurs="unbounded" name="Product">
+											<xs:complexType>
+												<xs:sequence maxOccurs="unbounded">
+													<xs:element name="ProdCode">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="8" />
+																<xs:pattern value="[a-zA-Z0-9/-]{8}" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="BATCH_NUMBER">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="2" />
+																<xs:maxLength value="20" />
+																<xs:pattern
+																	value="([a-zA-Z0-9/&amp;\.\-_`\s%\(\)!\*+,:;=&lt;&gt;])*" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						
+				<xs:element maxOccurs="unbounded" name="SEC_LIST">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="SECONDARY">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="SSCC">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="16" />
+													<xs:maxLength value="18" />
+													<xs:pattern value="([a-zA-Z0-9/-])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Type">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:length value="4" />
+													<xs:pattern value="HOMO|HETR" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Level">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1" />
+													<xs:maxLength value="10" />
+													<xs:pattern value="([0-9])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="ParentCD">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="4" />
+													<xs:maxLength value="14" />
+													<xs:pattern value="([\sA-Za-z0-9/\.\-])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CODE_SNo">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:length value="16" />
+													<xs:pattern value="[1-4]{1}[a-zA-Z0-9/-]{3}[0/1]{1}[0-9]{10}[a-zA-Z0-9/-]{1}" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+
+										<xs:element maxOccurs="unbounded" name="Product">
+											<xs:complexType>
+												<xs:sequence maxOccurs="unbounded">
+													<xs:element name="ProdCode">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="8" />
+																<xs:pattern value="[a-zA-Z0-9/-]{8}" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="BATCH_NUMBER">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="2" />
+																<xs:maxLength value="20" />
+																<xs:pattern
+																	value="([a-zA-Z0-9/&amp;\.\-_`\s%\(\)!\*+,:;=&lt;&gt;])*" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element maxOccurs="unbounded" name="SubCount">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1" />
+													<xs:maxLength value="10" />
+													<xs:pattern value="([0-9])*" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element minOccurs="0" maxOccurs="unbounded" name="List_srno">
+											<xs:complexType>
+												<xs:sequence minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="srno">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1" />
+																<xs:maxLength value="50" />
+																<xs:pattern value="([a-zA-Z0-9/-])*" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+
+										
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

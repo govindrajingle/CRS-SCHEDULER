@@ -1,0 +1,289 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import=" java.io.File,java.util.*"%> 
+<%@ page isELIgnored="false" errorPage="ErrorPage.jsp"%>
+
+<title>Recalled Data</title>
+
+<script>
+var token_key = "NMD_TOKEN_KEY";
+var createFHash = function(frmName){
+//alert("createFHash same");
+	 datastring = $("form[name='"+frmName+"']").serializeArray()
+	var tokenval = getHexaCode(datastring);
+												
+	
+	//alert("token==="+tokenval);
+ 
+
+	$('<input>').attr({
+	    type: 'hidden',
+	    id: token_key,
+	    name: token_key,
+	    value:tokenval
+	}).appendTo('form');
+	
+ 	
+};
+ 
+ var getHexaCode = function(datastring){
+	
+	 datastring.sort(function(a, b){
+	        var a1= a.name.toLowerCase(), b1= b.name.toLowerCase();
+	        if(a1== b1) return 0;
+				   
+				   
+	        return a1> b1? 1: -1;
+	    });
+	     
+	//alert(datastring);
+	console.log(datastring);
+	
+	
+	
+	var myInput = "";
+	var datalength=0;
+	$.each(datastring, function( index, val ) {
+		 
+		if(val.name != token_key){
+			
+			////alert( index + ": " + val.name +" ="+val.value+"=");
+			
+			var newVal =  val.value;
+			
+			if(newVal!=''){
+				
+				newVal = newVal.replace(/ /gi, "_");
+				newVal = newVal.replace(/\n|\r\n|\r/g, '_');
+				myInput = myInput+""+newVal;
+				datalength=datalength+1;
+			}
+			
+		}
+		
+		  
+	});
+	
+	//console.log("str :: "+myInput);
+	//alert(myInput);
+	return hex_md5(myInput);
+	
+	//return myInput;
+	
+	
+ };
+ 
+ 
+var submitForm = function(){
+	
+	////alert("inside submitForm");
+	 		
+	document.forms[0].submit();
+	
+	
+};
+ 
+var getQueryParameters = function(str){
+	str = str.split('?')[1];
+	
+	var outputArray = new Array();
+	
+	var strVals = str.split("&");
+	
+	for(var i=0; i< strVals.length; i++){
+		
+		var newVals = strVals[i].split("=");
+		
+		var obj = {name:""+newVals[0] , value:""+newVals[1]} ;
+		
+		outputArray[i] = obj;
+		
+	} 
+	
+	return outputArray;
+	
+};
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	//alert("in location");
+	loadDataTable(1);
+});
+
+function initTable(id,x_size,y_size,statusID){
+	var Table = $(id).DataTable({
+		columns: [
+			{
+						"sTitle" : "",
+						"mData" : "num_document_id",
+						"bVisible": false
+			},
+			{
+				"sTitle" : "Purpose Type",
+				"mData" : "str_remarks"
+			},
+			{
+				"sTitle" : "Uploaded Date",
+				"mData" : "createddate"
+			},
+			{
+				"sTitle" : "Uploaded Time",
+				"mData" : "createdtime"
+			},
+			{
+				"sTitle" : "Uploaded Xml",
+				"mData" :  ""
+			}
+		],
+						         	responsive: !0,
+									columnDefs : [
+											{
+												'targets' : 4,
+												'searchable' : true,
+												'orderable' : true,
+												'className' : 'dt-body-top',
+												'render' : function(
+														data, type, row) {
+
+
+													var a = "";
+													
+					    	    					a = '<a href="#" onclick="xmlFunction(\''+row.num_document_id+'\');">Download Xml</a>'; 
+					    	    		//${pageContext.request.contextPath}/uploadXmlPage/
+					    	    				   return a;
+															
+												}
+											},
+		
+											
+											{
+												"targets": [],
+								                 "className": "none",
+								             	  
+								             }],	             
+    	
+	});
+	return Table;
+}
+
+function resetAndDrawTable(dataTableId,data,statusID){
+	var sizeWidth,sizeHeight;
+		sizeWidth="100%";
+		sizeHeight="100%";
+	var table = initTable(dataTableId,sizeWidth,sizeHeight,statusID);
+	
+	table.clear().draw();
+	table.rows.add(data); // Add new data
+	table.columns.adjust().draw();
+}
+
+
+function loadDataTable(statusID){
+	//alert("in DT");
+	 $.ajax({
+			type:"GET",
+			data:{status :statusID},
+			url :"getRecalledUploadXML",
+			success: function(response){
+				//alert(response);
+				var JSONObject = JSON.parse(response);
+				
+				//alert(JSON.stringify(JSONObject.aaData));
+				resetAndDrawTable("#m_table_1",JSONObject.aaData,statusID);// Redraw the DataTable
+			}
+		});
+} 
+
+function xmlFunction(docId){//${pageContext.request.contextPath}/downloadTmpFile_Secure/'+row.num_document_id
+	//alert(docId);
+	//var enFid = DataEncoder.encode(docId);
+	//var enFid =  window.btoa(docId);
+	//added by harshita 18-08-23
+	var enFid1 = btoa(docId); 
+	//alert("enFid1" + enFid1)
+	var reverseval=reverseString(enFid1);
+	//alert("reverseval" + reverseval)
+	var enFid = btoa(reverseval);  
+	//alert("enFid" + enFid)
+	
+	
+	//alert(enFid);
+	var fileType = 2;
+	
+	
+	 
+
+  /*   $("#enProdType").val(enProdId);
+    $("#enHSCode").val(enHscodeId);
+
+
+    
+    createFHash("frm"); 
+    document.forms[0].method="post";
+    document.forms[0].submit(); */
+	
+	
+	document.getElementById("frm").action = "${pageContext.request.contextPath}/downloadTmpFile_Secure";
+	$("#ENdoc_id").val(enFid);
+    $("#fileType").val(fileType);
+	//document.getElementById("frm").method = "GET";
+	document.getElementById("frm").method = "POST";
+	createFHash("frm");
+	document.getElementById("frm").submit(); 
+	//ok_message("Under Processing......");
+}
+
+</script>
+
+ <script>
+
+			  //added by harshita
+			    function reverseString(str) {
+			    	//alert ('Hello');
+			        var newString = "";
+			        for (var i = str.length - 1; i >= 0; i--) {
+			            newString += str[i];
+			        }
+			        return newString;
+			    }
+
+			    </script>
+<div class="content-wrapper mt-0 pt-0">
+	<div class="regdv content content-tiles">
+		<div class="page-title"><h1 class="fw-bold">Recalled Data</h1></div>
+		<!--begin::Portlet-->
+		<div class="m-portlet m-portlet--last m-portlet--head-lg m-portlet--responsive-mobile" id="main_portlet">
+				<form:form  id="frm" name="frm" modelAttribute="uploadData" cssClass="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" >
+	             
+							<form:input type="hidden" id="ENdoc_id" path="ENdoc_id" />
+						<form:input type="hidden" id="fileType" path="fileType" />	
+						
+					<table class="table table-striped table-bordered dt-responsive nowrap dspit dataTable no-footer dtr-inline collapsed" id="m_table_1" >
+						<thead class="theadTransacColor">
+				  			<tr>
+					  									
+					  		</tr>
+						</thead>
+						
+					</table>
+					
+				</form:form>
+		</div>
+		<!--end::Portlet-->
+	</div>
+	   
+</div>
+
+
+<!--     <script type="text/javascript" src="js/formFieldValidation/CSRF2.js"></script> -->
+  <script type="text/javascript" src="js/formFieldValidation/md5.js"></script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RRHHYLSBGG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RRHHYLSBGG');
+</script>
